@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Assessment</title>
+    <link rel="icon" href="pixelcut-export.png" sizes="32x32" type="image/png">  <!-- Favicon link -->
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; }
+        .container { text-align: center; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .question { margin-bottom: 15px; }
+        .explanation { color: green; }
+        .button-container { text-align: center; margin-top: 20px; }
+        .button-container button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; }
+        .button-container button:hover { background-color: #3e8e41; }
+        img.logo { width: 150px; margin: 60px 0 20px; }  /* Increased margin to position the logo lower */
+        input.correct { border: 2px solid green; }
+        input.incorrect { border: 2px solid red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="pixelcut-export.png" alt="Logo" class="logo">
+        <h1>Moi High school Mathematics Assessment</h1>
+        <form id="mathForm">
+            <div class="question">
+                <label for="q1">1. What is the area of a triangle with base 10cm and height 5cm?</label><br>
+                <input type="text" id="q1" name="q1">
+            </div>
+            <div class="question">
+                <label for="q2">2. Solve for x: 2x + 3 = 11</label><br>
+                <input type="text" id="q2" name="q2">
+            </div>
+            <div class="question">
+                <label for="q3">3. What is the circumference of a circle with a radius of 7cm?</label><br>
+                <input type="text" id="q3" name="q3">
+            </div>
+            <div class="question">
+                <label for="q4">4. Solve for y: 3y - 9 = 0.</label><br>
+                <input type="text" id="q4" name="q4">
+            </div>
+            <div class="question">
+                <label for="q5">5. What is the Pythagorean theorem formula?</label><br>
+                <input type="text" id="q5" name="q5">
+            </div>
+            <div class="question">
+                <label for="q6">6. What is the value of x in the equation x/4 = 9?</label><br>
+                <input type="text" id="q6" name="q6">
+            </div>
+            <div class="question">
+                <label for="q7">7. Find the perimeter of a rectangle with length 8cm and width 5cm.</label><br>
+                <input type="text" id="q7" name="q7">
+            </div>
+            <div class="question">
+                <label for="q8">8. Solve for z: z + 2 = 11.</label><br>
+                <input type="text" id="q8" name="q8">
+            </div>
+            <div class="button-container">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+        <div id="results"></div>
+    </div>
+    <script>
+        document.getElementById('mathForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let results = '';
+            let explanation = '';
+            const answers = { 
+                q1: '25', 
+                q2: '4', 
+                q3: '44', 
+                q4: '3', 
+                q5: 'a² + b² = c²',
+                q6: '36',
+                q7: '26',
+                q8: '9'
+            };
+            const userAnswers = {
+                q1: document.getElementById('q1'),
+                q2: document.getElementById('q2'),
+                q3: document.getElementById('q3'),
+                q4: document.getElementById('q4'),
+                q5: document.getElementById('q5'),
+                q6: document.getElementById('q6'),
+                q7: document.getElementById('q7'),
+                q8: document.getElementById('q8')
+            };
+
+            // Reset styles before checking answers
+            for (let question in userAnswers) {
+                userAnswers[question].classList.remove('correct', 'incorrect');
+            }
+
+            for (let question in answers) {
+                if (userAnswers[question].value === answers[question]) {
+                    results += `Question ${question.charAt(1)}: Correct!<br>`;
+                    userAnswers[question].classList.add('correct');
+                } else {
+                    results += `Question ${question.charAt(1)}: Incorrect.<br>`;
+                    explanation += `Question ${question.charAt(1)}: The correct answer is ${answers[question]}. Explanation: <br>`;
+                    userAnswers[question].classList.add('incorrect');
+                    if (question === 'q1') {
+                        explanation += 'Area of triangle = 0.5 * base * height = 0.5 * 10 * 5 = 25.<br>';
+                    } else if (question === 'q2') {
+                        explanation += 'To solve for x: 2x = 11 - 3 => 2x = 8 => x = 4.<br>';
+                    } else if (question === 'q3') {
+                        explanation += 'Circumference = 2 * π * radius = 2 * 3.14 * 7 = 44.<br>';
+                    } else if (question === 'q4') {
+                        explanation += 'To solve for y: 3y = 9 => y = 3.<br>';
+                    } else if (question === 'q5') {
+                        explanation += 'Pythagorean theorem: a² + b² = c², where c is the hypotenuse.<br>';
+                    } else if (question === 'q6') {
+                        explanation += 'To solve for x: x = 9 * 4 = 36.<br>';
+                    } else if (question === 'q7') {
+                        explanation += 'Perimeter of rectangle = 2 * (length + width) = 2 * (8 + 5) = 26.<br>';
+                    } else if (question === 'q8') {
+                        explanation += 'To solve for z: z = 11 - 2 = 9.<br>';
+                    }
+                }
+            }
+            document.getElementById('results').innerHTML = results + '<div class="explanation">' + explanation + '</div>';
+        });
+    </script>
+</body>
+</html>
